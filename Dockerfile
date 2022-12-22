@@ -1,4 +1,4 @@
-FROM --platform=linux/amd64 python:3.8.11-bullseye as build
+FROM python:3.8.11-bullseye as build
 
 RUN curl -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.com/108.0.5359.71/chromedriver_linux64.zip" \
     && curl -Lo "/tmp/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1058929%2Fchrome-linux.zip?alt=media" \
@@ -6,7 +6,7 @@ RUN curl -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.co
     && unzip /tmp/chrome-linux.zip -d /opt/ \
     && rm -rf /tmp/*
 
-FROM --platform=linux/amd64 python:3.8.11-bullseye
+FROM python:3.8.11-bullseye
 
 ARG USERNAME=robot
 ARG USER_UID=1000
