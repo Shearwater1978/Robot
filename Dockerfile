@@ -1,0 +1,32 @@
+FROM --platform=linux/amd64 python:3.8.11-bullseye as build
+
+RUN curl -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.com/108.0.5359.71/chromedriver_linux64.zip" \
+    && curl -Lo "/tmp/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1058929%2Fchrome-linux.zip?alt=media" \
+    && unzip /tmp/chromedriver.zip -d /opt/ \
+    && unzip /tmp/chrome-linux.zip -d /opt/ \
+    && rm -rf /tmp/*
+
+FROM --platform=linux/amd64 python:3.8.11-bullseye
+
+ARG USERNAME=robot
+ARG USER_UID=1000
+ARG USER_GID=$USER_UID
+ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/"
+ENV ROBOT_OPTIONS="--outputdir results --suitestatlevel 2"
+
+RUN groupadd --gid $USER_GID $USERNAME \
+    && echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list \
+    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/ \
+    && apt update \
+    && apt install -y libnss3 libnss3-dev \
+    && rm -rf /var/lib/apt/lists
+COPY --from=build /opt/chrome-linux /opt/chrome
+COPY --from=build /opt/chromedriver /opt/
+COPY aux_scripts/selenium_test.py /opt/
+RUN chown -R $USER_UID:$USER_GID /opt/
+
+USER robot
+WORKDIR /opt/
+RUN pip install --upgrade pip \
+    && pip install selenium robotframework robotframework-Selenium2Library --no-warn-script-location
