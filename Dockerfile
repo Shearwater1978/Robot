@@ -13,13 +13,35 @@ ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/"
 ENV ROBOT_OPTIONS="--outputdir results --suitestatlevel 2"
+ENV DEBIAN_FRONTEND=noninteractive
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
     && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/ \
     && apt update \
-    && apt install -y libnss3 libnss3-dev \
+    && apt install -y libnss3 \
+        libnss3-dev \
+        libatk1.0-0 \
+        libatk-bridge2.0-0 \
+        libcups2 \
+        libdrm2 \
+        libxcomposite1 \
+        libxdamage1 \
+        libxfixes3 \
+        libxrandr2 \
+        libgbm1 \
+        libxkbcommon0 \
+        libasound2 \
+        xorg \
+        xvfb \
+        gtk2-engines-pixbuf \
+        dbus-x11 \
+        xfonts-base \
+        xfonts-100dpi \
+        xfonts-75dpi \
+        xfonts-cyrillic \
+        xfonts-scalable \
     && rm -rf /var/lib/apt/lists
 COPY --from=build /opt/chrome-linux /opt/chrome
 COPY --from=build /opt/chromedriver /opt/
