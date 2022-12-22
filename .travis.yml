@@ -42,7 +42,7 @@ jobs:
         - ./hadolint-Linux-x86_64 -f json --no-fail Dockerfile > hadolint.json
     
     - stage: Docker
-      name: Docle
+      name: Dockle
       scrpit:
         - docker build . -f Dockerfile -t testimage:latest
         - docker save testimage:latest -o testimage.tar
