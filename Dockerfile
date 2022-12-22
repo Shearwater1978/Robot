@@ -14,6 +14,7 @@ ARG USER_GID=$USER_UID
 ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/"
 ENV ROBOT_OPTIONS="--outputdir results --suitestatlevel 2"
 ENV DEBIAN_FRONTEND=noninteractive
+ENV PIP_NO_CACHE_DIR=1
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list \
