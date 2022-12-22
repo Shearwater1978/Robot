@@ -9,7 +9,7 @@ options.add_argument('--headless')
 options.add_argument('--start-maximized')
 options.add_argument('--user-data-dir=~/.config/google-chrome')
 
-driver = webdriver.Chrome('/opt/chromedriver',options=options, service_args=["--verbose", "--log-path=./log.log"])
+driver = webdriver.Chrome('/opt/chromedriver', options=options, service_args=["--verbose", "--log-path=./log.log"])
 
 url = os.environ.get('TEST_URL', 'https://www.google.com')
 driver.get(url)
