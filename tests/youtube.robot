@@ -20,15 +20,11 @@ Youtube Open
     Wait until page contains element  ${element}
     Capture Page Screenshot
 
-Youtube Click
+Youtube Sign-in Click
     Click Element                       xpath=(//*[@id="topbar"]/div[2]/div[2]/ytd-button-renderer/yt-button-shape/a/yt-touch-feedback-shape/div)
     Wait until page contains element    ${change_lng_login_form}
-    Click Element                       xpath=(//*[@id="lang-chooser"]/div/div[2])
     Capture Page Screenshot
 
-Youtube Change language
-    Scroll Element Into View        xpath=(//*[@id="lang-chooser"]/div/div[2])
-    Wait Until Element is visible   Suomi
-    Set Focus To Element            Suomi
-    Click Element                   Suomi
+Youtube Open Change Language
+    Click Element                       xpath=(//*[@id="lang-chooser"])
     Capture Page Screenshot
