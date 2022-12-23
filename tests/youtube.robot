@@ -4,7 +4,6 @@ Library  Selenium2Library
 *** Variables ***
 ${URL}              http://www.youtube.com
 ${BROWSER}          Chrome
-# Alternately https://accounts.lambdatest.com/profile you can also use xpath=//*[@id="tsf"]/div[2]/div/div[1]/div/div[1]/input
 ${element} 	    xpath=//*[@id="topbar"]/div[2]/div[2]/ytd-button-renderer/yt-button-shape/a/yt-touch-feedback-shape/div
 ${change_lng_login_form}   xpath=//*[@id="lang-chooser"]/div/div[1]
 
