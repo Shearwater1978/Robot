@@ -21,7 +21,7 @@ Youtube Open
     Capture Page Screenshot
 
 Youtube Sign-in Click
-    Click Element                       xpath=(//*[@id="topbar"]/div[2]/div[2]/ytd-button-renderer/yt-button-shape/a/yt-touch-feedback-shape/div)
+    Click Element                       ${element}
     Wait until page contains element    ${change_lng_login_form}
     Capture Page Screenshot
 
