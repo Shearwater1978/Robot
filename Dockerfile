@@ -19,9 +19,10 @@ ENV PIP_NO_CACHE_DIR=1
 RUN groupadd --gid $USER_GID $USERNAME \
     && echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list \
     && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
-    && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/ \
-    && apt update \
-    && apt install -y libnss3 \
+    && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/
+    && apt update
+
+RUN apt install -y libnss3 \
         libnss3-dev \
         libatk1.0-0 \
         libatk-bridge2.0-0 \
@@ -44,6 +45,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
         xfonts-cyrillic \
         xfonts-scalable \
     && rm -rf /var/lib/apt/lists
+
 COPY --from=build /opt/chrome-linux /opt/chrome
 COPY --from=build /opt/chromedriver /opt/
 COPY aux_scripts/selenium_test.py /opt/
