@@ -6,6 +6,8 @@ ${URL}              http://www.youtube.com
 ${BROWSER}          Chrome
 ${element} 	    xpath=//*[@id="topbar"]/div[2]/div[2]/ytd-button-renderer/yt-button-shape/a/yt-touch-feedback-shape/div
 ${change_lng_login_form}   xpath=//*[@id="lang-chooser"]/div/div[1]
+${REJECTALL}    xpath=//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]
+
 
 *** Test Cases ***
 Open Chrome
@@ -23,8 +25,8 @@ Open Chrome
 
 Youtube Open
     Maximize Browser Window
-    Click Element       xpath=(//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2])
-    Wait until page contains element  ${element}
+    Wait until page contains element	${REJECTALL}
+    Click Element	${REJECTALL}
     Capture Page Screenshot	youtube_open.png
 
 Youtube Sign-in Click
