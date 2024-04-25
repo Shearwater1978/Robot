@@ -17,11 +17,13 @@ Open Chrome
     Call Method  ${options}  add_argument  --headless
     Call Method  ${options}  add_argument  --disable-dev-shm-usage
     Open Browser  ${URL}  Chrome  options=${options}
-    Capture Page screenshot	./open_chrome.png
+    Maximize Browser Window
     Go To   ${URL}
+    Capture Page Screenshot	open_chrome.png
 
 Youtube Open
     Maximize Browser Window
+    Click Element       xpath=(//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2])
     Wait until page contains element  ${element}
     Capture Page Screenshot	youtube_open.png
 
