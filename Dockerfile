@@ -51,15 +51,16 @@ RUN chown -R $USER_UID:$USER_GID /opt/
 
 USER robot
 WORKDIR /opt/
-
 RUN curl -sS -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapis.com/108.0.5359.71/chromedriver_linux64.zip" \
     && curl -sS -Lo "/tmp/chrome-linux.zip" "https://www.googleapis.com/download/storage/v1/b/chromium-browser-snapshots/o/Linux_x64%2F1058929%2Fchrome-linux.zip?alt=media" \
     && unzip /tmp/chromedriver.zip -d /opt/ \
     && unzip /tmp/chrome-linux.zip -d /opt/ \
-    && mkdir -p /opt/chrome \
-    && cp -r /opt/chrome-linux /opt/chrome \
+    && mkdir -p /opt/chrome /opt/screenshots/ \
+    && cp -r /opt/chrome-linux/* /opt/chrome \
     && ls -la /opt/ \
     && rm -rf /tmp/*
 
 RUN pip install --upgrade pip \
-    && pip install selenium robotframework robotframework-Selenium2Library --no-warn-script-location
+    && pip install --user --no-warn-script-location selenium robotframework robotframework-Selenium2Library
+
+ENTRYPOINT ["python", "selenium_test.py"]
