@@ -25,7 +25,7 @@ jobs:
     if: github.ref != 'refs/heads/main'
     steps:
       - name: Run Robot test case
-        uses: addnab/docker-run-actions@v3
+        uses: addnab/docker-run-action@v3
         with:
           image: robot:latest
           options: -v ${{ github.workspace }}:/workspace
