@@ -25,15 +25,13 @@ jobs:
           image: robot:latest
           options: |
             -v ${{ github.workspace }}:/workspace 
-            -v ${{ github.workspace }}/tests/:/opt/tests/
-            -v ${{ github.workspace }}/tmp/:/tmp/
           run: |
             robot tests/youtube.robot
-            mkdir -p /tmp/robot/
-            cp -r /opt/results/* /tmp/robot/
-            cp -r /opt/screenshots/* /tmp/robot/
+            mkdir -p /workspace/robot/
+            cp -r /opt/results/* /workspace/robot/
+            cp -r /opt/screenshots/* /workspace/robot/
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifacts
           path: |
-            ${{ github.workspace }}/tmp/*
+            ${{ github.workspace }}/robot/*
