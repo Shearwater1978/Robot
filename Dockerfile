@@ -63,8 +63,3 @@ RUN curl -sS -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapi
 WORKDIR /tmp/
 COPY --chown=robot:robot requirements.txt .
 RUN pip install --user -r requirements.txt
-
-# RUN pip install --upgrade pip \
-#     && pip install --user --no-warn-script-location selenium robotframework robotframework-Selenium2Library
-
-# ENTRYPOINT ["python", "selenium_test.py"]
