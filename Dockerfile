@@ -10,10 +10,11 @@ ENV PIP_NO_CACHE_DIR=1
 
 RUN groupadd --gid $USER_GID $USERNAME \
     && echo "deb http://ftp.de.debian.org/debian sid main" >> /etc/apt/sources.list \
-    && useradd --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && useradd -s /bin/bash --uid $USER_UID --gid $USER_GID -m $USERNAME \
+    && echo "alias ll='ls -la'" >> /home/$USERNAME/.bashrc \
     && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/ \
     && apt update \
-    && apt install curl unzip -y \
+    && apt install curl unzip vim -y \
     && apt autoremove 
 
 RUN apt install -y libnss3 \
@@ -57,8 +58,7 @@ RUN curl -sS -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapi
     && unzip /tmp/chrome-linux.zip -d /opt/ \
     && mkdir -p /opt/chrome /opt/screenshots/ \
     && cp -r /opt/chrome-linux/* /opt/chrome \
-    && ls -la /opt/ \
-    && rm -rf /tmp/*
+    && rm -rf /tmp/* /opt/chrome-linux/
 
 RUN pip install --upgrade pip \
     && pip install --user --no-warn-script-location selenium robotframework robotframework-Selenium2Library
