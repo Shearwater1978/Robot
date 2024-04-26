@@ -35,4 +35,4 @@ jobs:
         with:
           push: false
           context: .
-          tags: sentinel:latest
+          tags: robot:latest
