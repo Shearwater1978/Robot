@@ -18,7 +18,6 @@ jobs:
           push: false
           context: .
           tags: robot:latest
-
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
         with:
