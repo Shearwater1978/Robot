@@ -9,14 +9,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Run
+      - name: Prepare workspace for artifacts
         run: |
-          id
-          pwd
-          env
-          ls -la ${{ github.workspace }}
           mkdir ${{ github.workspace }}/test/
-          ls -la ${{ github.workspace }}
+          ARTIFACTS_SHA=$(git rev-parse HEAD)
+          echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -37,15 +34,13 @@ jobs:
           options: |
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           run: |
-            id
-            ls -la /workspace/
             robot /workspace/tests/youtube.robot
             cp -r /opt/results/* /workspace/test/
             cp -r /opt/screenshots/* /workspace/test/
-            ls -la /workspace/
             
       - uses: actions/upload-artifact@v4
         with:
-          name: my-artifacts
+          name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
+          retention-days: 1
           path: |
             ${{ github.workspace }}/test/*
