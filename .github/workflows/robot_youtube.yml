@@ -11,6 +11,7 @@ jobs:
 
       - name: Run
         run: |
+          id
           pwd
           env
           ls -la ${{ github.workspace }}
@@ -35,6 +36,7 @@ jobs:
           options: |
             -v ${{ github.workspace }}:/workspace 
           run: |
+            id
             ls -la /workspace/
             robot /workspace/tests/youtube.robot
             cp -r /opt/results/* /workspace/test/
