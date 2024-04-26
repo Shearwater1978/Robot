@@ -23,6 +23,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: robot:latest
-          options: -v ${{ github.workspace }}:/workspace
+          options: 
+            -v ${{ github.workspace }}:/workspace -v ${{ github.workspace }}/tests/:/opt/tests/
           run: |
             robot tests/youtube.robot
