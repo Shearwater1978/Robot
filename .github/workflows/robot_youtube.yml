@@ -11,6 +11,8 @@ jobs:
 
       - name: Run
         run: |
+          pwd
+          env
           ls -la ${{ github.workspace }}
           mkdir ${{ github.workspace }}/test/
           ls -la ${{ github.workspace }}
