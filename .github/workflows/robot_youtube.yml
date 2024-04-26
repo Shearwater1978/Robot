@@ -28,7 +28,7 @@ jobs:
           context: .
           tags: robot:latest
           load: true
-          secrets: USER_UID=1001
+          build-args: USER_UID=1001
           
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
