@@ -9,29 +9,33 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
+      - name: Ls
+        run: |
+          ls -la ${{ github.workspace }}
 
-      - name: Build Docker image
-        uses: docker/build-push-action@v5
-        with:
-          push: false
-          context: .
-          tags: robot:latest
-          load: true
-      - name: Run Robot test case
-        uses: addnab/docker-run-action@v3
-        with:
-          image: robot:latest
-          options: |
-            -v ${{ github.workspace }}:/workspace 
-          run: |
-            robot tests/youtube.robot
-            mkdir -p /workspace/robot/
-            cp -r /opt/results/* /workspace/robot/
-            cp -r /opt/screenshots/* /workspace/robot/
-      - uses: actions/upload-artifact@v4
-        with:
-          name: my-artifacts
-          path: |
-            ${{ github.workspace }}/robot/*
+      # - name: Set up Docker Buildx
+      #   uses: docker/setup-buildx-action@v3
+
+      # - name: Build Docker image
+      #   uses: docker/build-push-action@v5
+      #   with:
+      #     push: false
+      #     context: .
+      #     tags: robot:latest
+      #     load: true
+      # - name: Run Robot test case
+      #   uses: addnab/docker-run-action@v3
+      #   with:
+      #     image: robot:latest
+      #     options: |
+      #       -v ${{ github.workspace }}:/workspace 
+      #     run: |
+      #       robot tests/youtube.robot
+      #       mkdir -p /workspace/robot/
+      #       cp -r /opt/results/* /workspace/robot/
+      #       cp -r /opt/screenshots/* /workspace/robot/
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: my-artifacts
+      #     path: |
+      #       ${{ github.workspace }}/robot/*
