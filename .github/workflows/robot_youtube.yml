@@ -12,7 +12,7 @@ jobs:
       - name: Prepare workspace for artifacts
         run: |
           mkdir ${{ github.workspace }}/test/
-          ARTIFACTS_SHA=$(git rev-parse HEAD)
+          ARTIFACTS_SHA=$(git rev-parse --short HEAD)
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
       - name: Set up Docker Buildx
