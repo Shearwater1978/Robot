@@ -1,0 +1,33 @@
+name: Robot execute
+run-name: Run Robot test case 🚀
+on:
+  workflow_dispatch:
+jobs:
+  BuildRobotImage:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v5
+        with:
+          push: false
+          context: .
+          tags: robot:latest
+
+  RunRobotTest:
+    runs-on: ubuntu-latest
+    if: github.ref != 'refs/heads/main'
+    steps:
+      - name: Run Robot test case
+        uses: addnab/docker-run-actions@v3
+        with:
+          image: robot:latest
+          options: -v ${{ github.workspace }}:/workspace
+          run: |
+            robot tests/youtube.robot
