@@ -35,10 +35,11 @@ jobs:
           options: |
             -v ${{ github.workspace }}:/workspace 
           run: |
+            ls -la /workspace/
             robot /workspace/tests/youtube.robot
-            mkdir -p /workspace/robot/
-            cp -r /opt/results/* ${{ github.workspace }}/test/
-            cp -r /opt/screenshots/* ${{ github.workspace }}/test/
+            cp -r /opt/results/* /workspace/test/
+            cp -r /opt/screenshots/* /workspace/test/
+            ls -la /workspace/
             
       - uses: actions/upload-artifact@v4
         with:
