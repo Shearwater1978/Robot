@@ -23,13 +23,17 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           image: robot:latest
-          options: 
-            -v ${{ github.workspace }}/artifacts/results/:/opt/results/* -v ${{ github.workspace }}/artifacts/screenshots/:/opt/screenshots/* -v ${{ github.workspace }}:/workspace -v ${{ github.workspace }}/tests/:/opt/tests/
+          options: |
+            -v ${{ github.workspace }}:/workspace 
+            -v ${{ github.workspace }}/tests/:/opt/tests/
+            -v ${{ github.workspace }}/tmp/:/tmp/
           run: |
             robot tests/youtube.robot
+            mkdir -p /tmp/robot/
+            cp -r /opt/results/* /tmp/robot/
+            cp -r /opt/screenshots/* /tmp/robot/
       - uses: actions/upload-artifact@v4
         with:
           name: my-artifacts
           path: |
-            ${{ github.workspace }}/artifacts/results/*
-            ${{ github.workspace }}/artifacts/screenshots/*
+            ${{ github.workspace }}/tmp/*
