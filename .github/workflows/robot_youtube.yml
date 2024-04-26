@@ -22,7 +22,8 @@ jobs:
 
   RunRobotTest:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    needs: BuildRobotImage
+    if: ${{ ! failure() && ! cancelled() && github.ref != 'refs/heads/main' }}
     steps:
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
