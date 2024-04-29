@@ -4,10 +4,10 @@ Library  Selenium2Library
 *** Variables ***
 ${URL}              http://www.youtube.com
 ${BROWSER}          Chrome
-${element} 	    xpath=//*[@id="topbar"]/div[2]/div[2]/ytd-button-renderer/yt-button-shape/a/yt-touch-feedback-shape/div
-${change_lng_login_form}   xpath=//*[@id="lang-chooser"]/div/div[1]
-${REJECTALL}    xpath=//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button/yt-touch-feedback-shape/div/div[2]
-${OUPUT_PNG}    /opt/screenshots
+${REJECTALL}	xpath=//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button
+${OUTPUT_DIR}    /opt/screenshots
+${TIMEOUT}      10
+
 
 *** Test Cases ***
 Open Chrome
@@ -20,12 +20,23 @@ Open Chrome
     Call Method  ${options}  add_argument  --disable-dev-shm-usage
     Call Method  ${options}  add_argument  --start-maximized
     Open Browser  ${URL}  ${BROWSER}   options=${options}
-    Capture Page Screenshot	${OUPUT_PNG}/open_chrome.png
     Go To   ${URL}
-    Capture Page Screenshot	${OUPUT_PNG}/open_url.png
 
-Youtube Open
+Youtube Open web site
     Set Window Size	1900	1200
     Wait until page contains element	//*[@id="cb-header"]/yt-formatted-string
-    Click Element	${REJECTALL}
-    Capture Page Screenshot	${OUPUT_PNG}/youtube_open.png
+
+Yotube Reject all cookies
+    Go To   ${URL}
+    Wait until page contains element	${REJECTALL}	${TIMEOUT}
+    Set Focus To Element	${REJECTALL}
+    Click Element	 ${REJECTALL}
+
+Youtube Input some text in Search textbox
+    Sleep	2s
+    Click Element		xpath://*[@id="search-input"]
+    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_click.png
+    Input Text			xpath://*[@id="search-container"]	AAAAA
+    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_input.png
+#    Execute Javascript		document.querySelector("#search-icon-legacy > yt-icon > yt-icon-shape").click()
+    Capture Page Screenshot	${OUTPUT_DIR}/input_text_last.png
