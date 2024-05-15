@@ -2,6 +2,15 @@ name: Docker
 run-name: Dockerfile lint and test 🚀
 on:
   workflow_dispatch:
+    inputs:
+      mode:
+        description: 'Override for build Docker image from main branch'
+        required: true
+        type: choice
+        default: 'no'
+        options:
+          - yes
+          - no
   # push:
   #   paths:
   #     - '**/Dockerfile'
@@ -22,7 +31,7 @@ jobs:
 
   Build:
     runs-on: ubuntu-latest
-    if: github.ref != 'refs/heads/main'
+    if: {{ (github.ref != 'refs/heads/main') || (github.event.inputs.mode == 'no') }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
