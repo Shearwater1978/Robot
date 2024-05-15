@@ -17,6 +17,10 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt install curl unzip vim -y \
     && apt autoremove 
 
+WORKDIR /tmp/
+COPY --chown=robot:robot requirements.txt .
+RUN pip install --user -r requirements.txt
+
 RUN apt install -y libnss3 \
         libnss3-dev
 
@@ -59,7 +63,3 @@ RUN curl -sS -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapi
     && mkdir -p /opt/chrome /opt/screenshots/ \
     && cp -r /opt/chrome-linux/* /opt/chrome \
     && rm -rf /tmp/* /opt/chrome-linux/
-
-WORKDIR /tmp/
-COPY --chown=robot:robot requirements.txt .
-RUN pip install --user -r requirements.txt
