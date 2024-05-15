@@ -7,7 +7,7 @@ ${BROWSER}          Chrome
 ${REJECTALL}	xpath=//*[@id="content"]/div[2]/div[6]/div[1]/ytd-button-renderer[1]/yt-button-shape/button
 ${OUTPUT_DIR}    /opt/screenshots
 ${TIMEOUT}      10
-
+${LOCATOR_NAME}	search-input
 
 *** Test Cases ***
 Open Chrome
@@ -26,7 +26,7 @@ Youtube Open web site
     Set Window Size	1900	1200
     Wait until page contains element	//*[@id="cb-header"]/yt-formatted-string
 
-Yotube Reject all cookies
+Youtube Reject all cookies
     Go To   ${URL}
     Wait until page contains element	${REJECTALL}	${TIMEOUT}
     Set Focus To Element	${REJECTALL}
@@ -34,9 +34,17 @@ Yotube Reject all cookies
 
 Youtube Input some text in Search textbox
     Sleep	2s
-    Click Element		xpath://*[@id="search-input"]
-    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_click.png
-    Input Text			xpath://*[@id="search-container"]	AAAAA
+    ${found1}=  Get Element Attribute  xpath=//*[starts-with(@id, '${LOCATOR_NAME}')]	class
+    Click Element	xpath=//*[starts-with(@id, '${LOCATOR_NAME}')]
+    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_click_${LOCATOR_NAME}.png
+    Set Focus To Element	xpath=//*[starts-with(@id, '${LOCATOR_NAME}')]
+    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_setfocus_${LOCATOR_NAME}.png
+    Execute Javascript    document.getElementById('${LOCATOR_NAME}').value="Your Text"
+    Capture Page Screenshot     ${OUTPUT_DIR}/input_text_fill_${LOCATOR_NAME}.png
+    Click Element    xpath=//*[starts-with(@id, 'search-icon-legacy')]
+    ${foundSearch}=	Get Element Attribute	xpath=//*[starts-with(@id, 'search-icon-legacy')]	class
+    ${found2}=  Get Element Attribute  xpath=//*[starts-with(@id, 'search-container')]       class
+    Log To Console     Search class for ${LOCATOR_NAME}: ${Found1}
+    Log To Console     Search class for search-container: ${Found2}
+    Log To Console	Search button class: ${foundSearch}
     Capture Page Screenshot     ${OUTPUT_DIR}/input_text_input.png
-#    Execute Javascript		document.querySelector("#search-icon-legacy > yt-icon > yt-icon-shape").click()
-    Capture Page Screenshot	${OUTPUT_DIR}/input_text_last.png
