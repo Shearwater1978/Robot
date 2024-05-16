@@ -22,8 +22,9 @@ COPY --chown=robot:robot requirements.txt .
 RUN pip install --user -r requirements.txt
 
 RUN apt install -y libnss3 \
-        libnss3-dev \
-        libatk1.0-0 \
+        libnss3-dev
+
+RUN apt install -y libatk1.0-0 \
         libatk-bridge2.0-0 \
         libcups2 \
         libdrm2 \
@@ -31,8 +32,9 @@ RUN apt install -y libnss3 \
         libxdamage1 \
         libxfixes3 \
         libxrandr2 \
-        libgbm1 \
-        libxkbcommon0 \
+        libgbm1
+
+RUN apt install -y libxkbcommon0 \
         libasound2 \
         xorg \
         xvfb \
