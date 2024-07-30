@@ -36,6 +36,7 @@ jobs:
           shell: bash
           run: |
             ls -la /opt/ || true
+            find / -name robot 2> >(grep -v 'Permission denied' >&2)
             robot /workspace/tests/youtube.robot || true
             cp -r /opt/results/* /workspace/test/|| true
             cp -r /opt/screenshots/* /workspace/test/ || true
