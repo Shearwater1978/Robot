@@ -17,10 +17,12 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && apt install curl unzip vim -y \
     && apt autoremove 
 
+USER robot
 WORKDIR /tmp/
 COPY --chown=robot:robot requirements.txt .
 RUN pip install --user -r requirements.txt
 
+USER root
 RUN apt install -y libnss3 \
         libnss3-dev
 
