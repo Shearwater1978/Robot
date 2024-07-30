@@ -23,19 +23,18 @@ jobs:
         with:
           push: false
           context: .
-          tags: robot:latest
+          tags: robot:new
           load: true
           build-args: USER_UID=1001
           
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
         with:
-          image: robot:latest
+          image: robot:new
           options: |
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
+          shell: bash
           run: |
-            id
-            pip install -r /tmp/requirements.txt
             robot /workspace/tests/youtube.robot || true
             cp -r /opt/results/* /workspace/test/|| true
             cp -r /opt/screenshots/* /workspace/test/ || true
