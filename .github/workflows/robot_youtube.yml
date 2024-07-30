@@ -35,8 +35,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           run: |
             id
-            pip freeze
-            whereis robot || true
+            pip install -r /tmp/requirements.txt
             robot /workspace/tests/youtube.robot || true
             cp -r /opt/results/* /workspace/test/|| true
             cp -r /opt/screenshots/* /workspace/test/ || true
