@@ -35,6 +35,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
+            ls -la /opt/ || true
             robot /workspace/tests/youtube.robot || true
             cp -r /opt/results/* /workspace/test/|| true
             cp -r /opt/screenshots/* /workspace/test/ || true
