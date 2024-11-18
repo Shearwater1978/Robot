@@ -33,17 +33,6 @@ jobs:
         run: |
           echo "REPO=${IMAGE_NAME,,}" >>${GITHUB_ENV}
 
-      - run: |
-          pwd
-          ls -la
-
-      - name: create-json
-        id: create-json
-        uses: jsdaniell/create-json@1.1.2
-        with:
-          name: "/workspace/tests/mydata.json"
-          json: ${{ secrets.MYDATA }}
-          
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
         with:
