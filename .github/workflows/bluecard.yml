@@ -45,6 +45,7 @@ jobs:
           shell: bash
           run: |
             pwd
+            env
             ls -la
             echo "$MYDATA" > /opt/mydata.json
             ls -la
