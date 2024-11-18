@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  BuildAndRunRobot:
+  BRunRobot:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
@@ -33,7 +33,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          image: robot:main
+          image: ${{ env.IMAGE_NAME }}/robot:main
           options: |
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
