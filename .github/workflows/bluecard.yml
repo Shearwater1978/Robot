@@ -30,13 +30,14 @@ jobs:
           password: ${{ secrets.GITHUB_TOKEN }}
           
       - name: downcase REPO
+        env:
+          MYDATA: ${{ secrets.MYDATA }}
         run: |
           echo "REPO=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+          echo "REPO=${MYDATA,,}" >>${GITHUB_ENV}
 
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
-        env:
-          MYDATA: ${{ secrets.MYDATA }}
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
