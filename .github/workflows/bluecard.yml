@@ -18,7 +18,7 @@ jobs:
 
       - name: Prepare workspace for artifacts
         run: |
-          mkdir -r ${{ github.workspace }}/tests/
+          mkdir -p ${{ github.workspace }}/tests/
           ARTIFACTS_SHA=$(git rev-parse --short HEAD)
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
