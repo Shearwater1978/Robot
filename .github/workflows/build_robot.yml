@@ -1,0 +1,26 @@
+name: Build Robot docker image
+run-name: Build Robot docker image 🚀
+on:
+  push:
+    paths:
+      - Dockerfile
+  workflow_dispatch:
+
+jobs:
+  BuildRobot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: true
+          context: .
+          tags: robot:new
+          load: true
+          build-args: USER_UID=1001
