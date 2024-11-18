@@ -37,7 +37,7 @@ jobs:
         uses: addnab/docker-run-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          image: ${{ REPO }}/robot:main
+          image: ${{ env.REPO }}/robot:main
           options: |
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
