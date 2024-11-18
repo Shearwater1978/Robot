@@ -47,7 +47,7 @@ jobs:
             pwd
             env
             ls -la
-            echo "$MYDATA" > /workspace/tests/mydata.json
+            echo "$MYDATA" > /opt/mydata.json
             robot /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/ || true
             cp -r /opt/screenshots/* /workspace/tests/ || true
