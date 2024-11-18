@@ -37,7 +37,7 @@ jobs:
         id: create-json
         uses: jsdaniell/create-json@1.1.2
         with:
-          name: "/workspace/tests/mydata.json"
+          name: "mydata.json"
           json: ${{ secrets.MYDATA }}
           
       - name: Run Robot test case
