@@ -42,7 +42,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
-            robot /workspace/tests/OkpWizard.robot
+            robot /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/
             cp -r /opt/screenshots/* /workspace/tests/
             
