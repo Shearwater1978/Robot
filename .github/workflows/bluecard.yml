@@ -42,13 +42,13 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
-            robot /workspace/test/OkpWizard.robot
-            cp -r /opt/results/* /workspace/test/
-            cp -r /opt/screenshots/* /workspace/test/
+            robot /workspace/tests/OkpWizard.robot
+            cp -r /opt/results/* /workspace/tests/
+            cp -r /opt/screenshots/* /workspace/tests/
             
       - uses: actions/upload-artifact@v4
         with:
           name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
           retention-days: 1
           path: |
-            ${{ github.workspace }}/test/*
+            ${{ github.workspace }}/tests/*
