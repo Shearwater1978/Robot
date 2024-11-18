@@ -36,7 +36,7 @@ jobs:
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
         env:
-          MYDATA: ${{ secret.MYDATA }}
+          MYDATA: ${{ secrets.MYDATA }}
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
