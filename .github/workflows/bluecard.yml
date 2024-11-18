@@ -32,6 +32,13 @@ jobs:
       - name: downcase REPO
         run: |
           echo "REPO=${IMAGE_NAME,,}" >>${GITHUB_ENV}
+
+      - name: create-json
+        id: create-json
+        uses: jsdaniell/create-json@1.1.2
+        with:
+          name: "mydata.json"
+          json: ${{ secrets.MYDATA }}
           
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
