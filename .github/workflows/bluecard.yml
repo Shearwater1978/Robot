@@ -1,0 +1,47 @@
+name: Bluecard check
+run-name: Bluecard check case 🚀
+on:
+  workflow_dispatch:
+jobs:
+  BuildAndRunRobot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Prepare workspace for artifacts
+        run: |
+          mkdir ${{ github.workspace }}/test/
+          ARTIFACTS_SHA=$(git rev-parse --short HEAD)
+          echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker image
+        uses: docker/build-push-action@v6
+        with:
+          push: false
+          context: .
+          tags: robot:new
+          load: true
+          build-args: USER_UID=1001
+          
+      - name: Run Robot test case
+        uses: addnab/docker-run-action@v3
+        with:
+          image: robot:new
+          options: |
+            -v ${{ github.workspace }}:/workspace -e USER_UID=1001
+          shell: bash
+          run: |
+            robot /workspace/tests/youtube.robot
+            cp -r /opt/results/* /workspace/test/
+            cp -r /opt/screenshots/* /workspace/test/
+            
+      - uses: actions/upload-artifact@v4
+        with:
+          name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
+          retention-days: 1
+          path: |
+            ${{ github.workspace }}/test/*
