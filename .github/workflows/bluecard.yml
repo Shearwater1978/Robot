@@ -18,7 +18,7 @@ jobs:
 
       - name: Prepare workspace for artifacts
         run: |
-          mkdir ${{ github.workspace }}/test/
+          mkdir ${{ github.workspace }}/tests/
           ARTIFACTS_SHA=$(git rev-parse --short HEAD)
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
@@ -37,7 +37,7 @@ jobs:
         id: create-json
         uses: jsdaniell/create-json@1.1.2
         with:
-          name: "mydata.json"
+          name: "/workspace/tests/mydata.json"
           json: ${{ secrets.MYDATA }}
           
       - name: Run Robot test case
