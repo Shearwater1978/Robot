@@ -10,7 +10,7 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
-  BRunRobot:
+  RunRobot:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
