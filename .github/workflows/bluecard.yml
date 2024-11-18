@@ -35,6 +35,8 @@ jobs:
 
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
+        env:
+          MYDATA: ${{ secret.MYDATA }}
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
@@ -43,7 +45,9 @@ jobs:
           shell: bash
           run: |
             pwd
+            env
             ls -la
+            echo "$MYDATA" > /workspace/tests/mydata.json
             robot /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/ || true
             cp -r /opt/screenshots/* /workspace/tests/ || true
