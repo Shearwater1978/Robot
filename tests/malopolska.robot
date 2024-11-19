@@ -13,6 +13,11 @@ ${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
 
 *** Test Cases ***
+Read json
+    ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
+    ${object}=  Evaluate    json.loads('''${jsonfile}''')   json
+    Log To Console  ${object}
+
 Open Chrome
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
     Call Method  ${options}  add_argument  --disable-notifications
@@ -27,15 +32,17 @@ Open Chrome
 
 Rezerwacja Open web site
     Set Window Size	1900	1200
-    Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_opened.png
+    Capture Page Screenshot ${screenshotsFolder}/OkpWizard_opened.png
 
 Rezerwacja Fill all fields
     ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
+    ${object}=  Evaluate    json.loads('''${jsonfile}''')   json
+    Log To Console  ${object}
     Click Element	//*[@id="i_know_rodo_ki"]
-    Input Text	//*[@id="Imie"]	${jsonfile["Imie"]}
-    Input Text	//*[@id="Nazwisko"]	${jsonfile["Nazwisko"]}
-    Input Text	//*[@id="DataUrodzenia"]	${jsonfile["DataUrodzenia"]}
-    Input Text	//*[@id="NumerSprawy"]	${contejsonfilent["NumerSprawy"]}
+    Input Text	//*[@id="Imie"]	${object["Imie"]}
+    Input Text	//*[@id="Nazwisko"]	${object["Nazwisko"]}
+    Input Text	//*[@id="DataUrodzenia"]	${object["DataUrodzenia"]}
+    Input Text	//*[@id="NumerSprawy"]	${object["NumerSprawy"]}
     Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_fill_name.png
 
 Rezerwacja Check actual state
