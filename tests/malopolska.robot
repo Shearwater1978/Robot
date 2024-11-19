@@ -5,10 +5,12 @@ Library	OperatingSystem
 *** Variables ***
 ${URL}              https://app.malopolska.uw.gov.pl/forms/Form/OkpWizard/1
 ${BROWSER}          Chrome
-${OUTPUT_DIR}    /opt/screenshots
+${screenshotsFolder}    ${CURDIR}/screenshots
 ${JSON_PATH}	/opt/
 ${TIMEOUT}      10
 ${LOCATOR_NAME}	search-input
+${testsRootFolder}	${CURDIR}
+${inputDataFolder}	${CURDIR}
 
 *** Test Cases ***
 Open Chrome
@@ -25,10 +27,10 @@ Open Chrome
 
 Rezerwacja Open web site
     Set Window Size	1900	1200
-    Capture Page Screenshot     ${OUTPUT_DIR}/OkpWizard_opened.png
+    Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_opened.png
 
 Rezerwacja Fill all fields
-    ${jsonfile}	Get File	${JSON_PATH}/mydata.json
+    ${jsonfile}	Get File	${inputDataFolder}/mydata.json
     ${content}	Evaluate	json.loads('''${jsonfile}''')	json
     Sleep	2s
     Click Element	//*[@id="i_know_rodo_ki"]
@@ -36,9 +38,9 @@ Rezerwacja Fill all fields
     Input Text	//*[@id="Nazwisko"]	${content["Nazwisko"]}
     Input Text	//*[@id="DataUrodzenia"]	${content["DataUrodzenia"]}
     Input Text	//*[@id="NumerSprawy"]	${content["NumerSprawy"]}
-    Capture Page Screenshot     ${OUTPUT_DIR}/OkpWizard_fill_name.png
+    Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_fill_name.png
 
 Rezerwacja Check actual state
     Click Element	//*[@id="submit"]
     Sleep	10s
-    Capture Page Screenshot	${OUTPUT_DIR}/OkpWizard_state.png
+    Capture Page Screenshot	${screenshotsFolder}/OkpWizard_state.png
