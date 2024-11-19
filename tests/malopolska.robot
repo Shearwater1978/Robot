@@ -5,7 +5,7 @@ Library	OperatingSystem
 *** Variables ***
 ${URL}              https://app.malopolska.uw.gov.pl/forms/Form/OkpWizard/1
 ${BROWSER}          Chrome
-${screenshotsFolder}    ${CURDIR}/screenshots
+${screenshotsFolder}    /opt/screenshots
 ${inputDataFolder}	${CURDIR}
 
 *** Test Cases ***
