@@ -39,11 +39,12 @@ jobs:
       - name: downcase REPO
         run: |
           echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
+          echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+        env: 
+          MYDATA: ${{ secrets.MYDATA }}
 
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
-        env: 
-          MYDATA: ${{ secrets.MYDATA }}
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
@@ -51,7 +52,6 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
-            env
             robot /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/ || true
             cp -r /opt/screenshots/* /workspace/tests/ || true
