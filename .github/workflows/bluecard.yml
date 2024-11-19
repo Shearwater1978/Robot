@@ -39,7 +39,7 @@ jobs:
       - name: downcase REPO
         run: |
           echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
-          echo "MYDATA64=${MYDATA64}" >> ${GITHUB_ENV}
+          echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
           env
         env:
           MYDATA: ${{ secrets.MYDATA64 }}

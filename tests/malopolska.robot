@@ -11,7 +11,7 @@ ${TIMEOUT}      10
 ${LOCATOR_NAME}	search-input
 ${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
-${inputDataEnv}	%{MYDATA}
+${inputDataEnv} %{MYDATA}
 
 *** Test Cases ***
 Read env
