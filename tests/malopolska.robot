@@ -13,11 +13,6 @@ ${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
 
 *** Test Cases ***
-Read json
-    ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
-    ${object}=  Evaluate    json.loads('''${jsonfile}''')   json
-    Log To Console  ${object}
-
 Open Chrome
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
     Call Method  ${options}  add_argument  --disable-notifications
@@ -37,7 +32,6 @@ Rezerwacja Open web site
 Rezerwacja Fill all fields
     ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
     ${object}=  Evaluate    json.loads('''${jsonfile}''')   json
-    Log To Console  ${object}
     Click Element	//*[@id="i_know_rodo_ki"]
     Input Text	//*[@id="Imie"]	${object["Imie"]}
     Input Text	//*[@id="Nazwisko"]	${object["Nazwisko"]}
