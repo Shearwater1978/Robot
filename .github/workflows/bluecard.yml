@@ -17,16 +17,10 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Prepare workspace for artifacts
-        env: 
-          MYDATA: ${{ secrets.MYDATA }}
         run: |
           mkdir -p ${{ github.workspace }}/tests/
           ARTIFACTS_SHA=$(git rev-parse --short HEAD)
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
-          echo $MYDATA > ${{ github.workspace }}/tests/mydata.json
-          echo "json=$MYDATA" >> $GITHUB_ENV
-          cat ${{ github.workspace }}/tests/mydata.json
-          env
 
       - name: Log into registry ${{ env.REGISTRY }}
         uses: docker/login-action@28218f9b04b4f3f62068d7b6ce6ca5b26e35336c
@@ -41,6 +35,8 @@ jobs:
 
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
+        env: 
+          MYDATA: ${{ secrets.MYDATA }}
         with:
           registry: ${{ env.REGISTRY }}
           image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
@@ -48,6 +44,7 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
+            echo $MYDATA > /workspace/tests/mydata.json
             ls -la /workspace/tests/
             robot /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/ || true
