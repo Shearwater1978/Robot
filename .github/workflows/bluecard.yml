@@ -54,7 +54,7 @@ jobs:
           shell: bash
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot /workspace/tests/malopolska.robot -x /workspace/tests/outputxunit.xml
+            robot -x /workspace/tests/outputxunit.xml /workspace/tests/malopolska.robot
             cp -r /opt/results/* /workspace/tests/ || true
             cp -r /opt/screenshots/* /workspace/tests/ || true
             
