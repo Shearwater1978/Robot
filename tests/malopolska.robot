@@ -14,6 +14,9 @@ ${inputDataFolder}	${CURDIR}
 ${inputDataEnv}	%{MYDATA}
 
 *** Test Cases ***
+Read env
+    Log To Console  ${inputDataEnv}
+
 Open Chrome
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
     Call Method  ${options}  add_argument  --disable-notifications

@@ -2,6 +2,9 @@ name: Bluecard check
 run-name: Bluecard check case 🚀
 on:
   workflow_dispatch:
+  push:
+    paths:
+    - '.github/**'
 
 env:
   # Use docker.io for Docker Hub if empty
