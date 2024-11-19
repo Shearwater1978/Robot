@@ -55,6 +55,9 @@ jobs:
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
             robot /workspace/tests/malopolska.robot
+            ls -la
+            ls -la /workspace/tests/ || true
+            ls -la /opt/ || true
             cp -r /opt/results/* /workspace/tests/ || true
             cp -r /opt/screenshots/* /workspace/tests/ || true
             
