@@ -45,17 +45,14 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
-            ls -la /workspace/ || true
-            ls -la /workspace/tests/ || true
-            pwd
-            env
-            ls -la
             echo "$MYDATA" > /opt/mydata.json
-            ls -la
-            robot /workspace/tests/malopolska.robot
-            cp -r /opt/results/* /workspace/tests/ || true
-            cp -r /opt/screenshots/* /workspace/tests/ || true
-            ls -la
+            echo $MYDATA > /opt/mydata1.json
+            cat /opt/mydata.json
+            cat /opt/mydata1.json
+            # robot /workspace/tests/malopolska.robot
+            # cp -r /opt/results/* /workspace/tests/ || true
+            # cp -r /opt/screenshots/* /workspace/tests/ || true
+            # ls -la
             
       - uses: actions/upload-artifact@v4
         with:
