@@ -45,6 +45,8 @@ jobs:
             -v ${{ github.workspace }}:/workspace -e USER_UID=1001
           shell: bash
           run: |
+            ls -la /workspace/ || true
+            ls -la /workspace/tests/ || true
             pwd
             env
             ls -la
