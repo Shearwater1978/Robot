@@ -35,6 +35,7 @@ jobs:
         run: |
           echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+          echo $MYDATA >> $GITHUB_OUTPUT
 
       - name: Run Robot test case
         uses: addnab/docker-run-action@v3
