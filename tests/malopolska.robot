@@ -49,3 +49,4 @@ Rezerwacja Validate results
    ${locator}=	Set Variable	xpath=//*[@id="Form.Okp"]/div[2]/div
    ${current text}=	Get Text	${locator}
    Should Not Contain	${current text}	Brak karty pobytu do odbioru
+   Should Not Contain	${current text}	niewłaściwy format numeru sprawy
