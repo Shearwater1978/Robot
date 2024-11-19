@@ -6,10 +6,6 @@ Library	OperatingSystem
 ${URL}              https://app.malopolska.uw.gov.pl/forms/Form/OkpWizard/1
 ${BROWSER}          Chrome
 ${screenshotsFolder}    ${CURDIR}/screenshots
-${JSON_PATH}	/opt/
-${TIMEOUT}      10
-${LOCATOR_NAME}	search-input
-${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
 
 *** Test Cases ***
@@ -27,7 +23,7 @@ Open Chrome
 
 Rezerwacja Open web site
     Set Window Size	1900	1200
-    Capture Page Screenshot ${screenshotsFolder}/OkpWizard_opened.png
+    Capture Page Screenshot	${screenshotsFolder}/OkpWizard_opened.png
 
 Rezerwacja Fill all fields
     ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
