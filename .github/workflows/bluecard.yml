@@ -1,5 +1,6 @@
 name: Bluecard check
 run-name: Bluecard check case 🚀
+
 on:
   workflow_dispatch:
   push:
@@ -26,7 +27,7 @@ jobs:
 
       - name: Prepare workspace for artifacts
         run: |
-          mkdir -p ${{ github.workspace }}/tests/
+          mkdir -p ${{ github.workspace }}/tests/ ${{ github.workspace }}/results/
           ARTIFACTS_SHA=$(git rev-parse --short HEAD)
           echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
@@ -36,7 +37,7 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
-          
+
       - name: downcase REPO
         run: |
           echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
@@ -54,13 +55,14 @@ jobs:
           shell: bash
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot -x /workspace/tests/outputxunit.xml /workspace/tests/malopolska.robot
-            cp -r /opt/results/* /workspace/tests/ || true
-            cp -r /opt/screenshots/* /workspace/tests/ || true
+            mkdir 
+            robot -x /workspace//results/outputxunit.xml /workspace/tests/malopolska.robot
+            cp -r /opt/results/* /workspace/results/ || true
+            cp -r /opt/screenshots/* /workspace/results/ || true
             
       - uses: actions/upload-artifact@v4
         with:
           name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
           retention-days: 1
           path: |
-            ${{ github.workspace }}/tests/*
+            ${{ github.workspace }}/results/*
