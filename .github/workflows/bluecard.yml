@@ -12,6 +12,7 @@ env:
 jobs:
   RunRobot:
     runs-on: ubuntu-latest
+    environment: my
     steps:
       - name: Checkout
         uses: actions/checkout@v4
