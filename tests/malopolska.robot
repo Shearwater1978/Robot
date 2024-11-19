@@ -14,8 +14,9 @@ ${inputDataFolder}	${CURDIR}
 ${inputDataEnv}=    %{MYDATA}
 
 *** Test Cases ***
-Read env
-    Log To Console  ${inputDataEnv}
+Env var
+    ${env_var}=    Get Environment Variable    MYDATA
+    Log To Console    ${env_var}
 
 Open Chrome
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
