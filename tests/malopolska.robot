@@ -11,6 +11,7 @@ ${TIMEOUT}      10
 ${LOCATOR_NAME}	search-input
 ${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
+${inputDataEnv}	%{MYDATA}
 
 *** Test Cases ***
 Open Chrome
@@ -30,8 +31,7 @@ Rezerwacja Open web site
     Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_opened.png
 
 Rezerwacja Fill all fields
-    ${jsonfile}	Get File	${inputDataFolder}/mydata.json
-    ${content}	Evaluate	json.loads('''${jsonfile}''')	json
+    ${content}	Evaluate	json.loads('''${inputDataEnv}''')	json
     Sleep	2s
     Click Element	//*[@id="i_know_rodo_ki"]
     Input Text	//*[@id="Imie"]	${content["Imie"]}
