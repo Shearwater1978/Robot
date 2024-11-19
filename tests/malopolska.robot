@@ -11,13 +11,8 @@ ${TIMEOUT}      10
 ${LOCATOR_NAME}	search-input
 ${testsRootFolder}	${CURDIR}
 ${inputDataFolder}	${CURDIR}
-${inputDataEnv}=    %{MYDATA}
 
 *** Test Cases ***
-Env var
-    ${env_var}=    Get Environment Variable    MYDATA
-    Log To Console    ${env_var}
-
 Open Chrome
     ${options}  Evaluate  sys.modules['selenium.webdriver'].ChromeOptions()  sys
     Call Method  ${options}  add_argument  --disable-notifications
@@ -35,13 +30,12 @@ Rezerwacja Open web site
     Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_opened.png
 
 Rezerwacja Fill all fields
-    ${content}	Evaluate	json.loads('''${inputDataEnv}''')	json
-    Sleep	2s
+    ${jsonfile}	Get File    ${inputDataFolder}/mydata.json
     Click Element	//*[@id="i_know_rodo_ki"]
-    Input Text	//*[@id="Imie"]	${content["Imie"]}
-    Input Text	//*[@id="Nazwisko"]	${content["Nazwisko"]}
-    Input Text	//*[@id="DataUrodzenia"]	${content["DataUrodzenia"]}
-    Input Text	//*[@id="NumerSprawy"]	${content["NumerSprawy"]}
+    Input Text	//*[@id="Imie"]	${jsonfile["Imie"]}
+    Input Text	//*[@id="Nazwisko"]	${jsonfile["Nazwisko"]}
+    Input Text	//*[@id="DataUrodzenia"]	${jsonfile["DataUrodzenia"]}
+    Input Text	//*[@id="NumerSprawy"]	${contejsonfilent["NumerSprawy"]}
     Capture Page Screenshot     ${screenshotsFolder}/OkpWizard_fill_name.png
 
 Rezerwacja Check actual state
