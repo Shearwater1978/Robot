@@ -59,7 +59,7 @@ jobs:
 
       - name: Test
         run: |
-          result=$(cat /workspace/tests/log.html | grep -q 'Brak karty pobytu do odbioru. Prosimy o ponownąaaa' && echo 'FAIL' || echo 'PASS')
+          cat /workspace/tests/log.html | grep -q 'Brak karty pobytu do odbioru. Prosimy o ponowną' && echo 'FAIL' || echo 'PASS'
           echo "Rezerwacja Validate results={result}" >> $GITHUB_STEP_SUMMARY
       # - uses: actions/upload-artifact@v4
       #   with:
