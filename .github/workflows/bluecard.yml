@@ -59,7 +59,7 @@ jobs:
 
       - name: Test
         run: |
-          echo "Rezerwacja Validate result" >> $GITHUB_OUTPUT
+          echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
