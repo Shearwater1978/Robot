@@ -60,6 +60,9 @@ jobs:
 
       - name: Test
         run: |
+          ls -la || true
+          ls -la /workspace/tests/ || true
+          ls -la /workspace/ || true
           echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
         env:
           RESULT: ${{ steps.run_case.outputs.stdout }}
