@@ -57,7 +57,8 @@ jobs:
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
             result=$(robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
             # robot -x /workspace/results/outputxunit.xml /workspace/tests/malopolska.robot
-            echo "Rezerwacja Validate results=${result}" >> GITHUB_OUTPUT
+            echo "Rezerwacja Validate results=${result}" >> $GITHUB_OUTPUT
+            echo "Rezerwacja Validate results=${result}" >> $GITHUB_STEP_SUMMARY
             # cp -r /opt/results/* /workspace/results/ || true
             # cp -r /opt/screenshots/* /workspace/results/ || true
             
