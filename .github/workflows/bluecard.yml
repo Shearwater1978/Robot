@@ -55,11 +55,12 @@ jobs:
           shell: bash
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            result=$(robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
+            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
       - name: Test
         run: |
-          echo "This is the lead in sentence for the list" >> $GITHUB_STEP_SUMMARY
+          result=$(cat /workspace/tests/log.html | grep -q 'Brak karty pobytu do odbioru. Prosimy o ponownąaaa' && echo 'FAIL' || echo 'PASS')
+          echo "Rezerwacja Validate results={result}" >> $GITHUB_STEP_SUMMARY
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
