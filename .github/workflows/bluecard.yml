@@ -60,7 +60,7 @@ jobs:
 
       - name: Test
         run: |
-          echo "Rezerwacja Validate results=${{ steps.run_case.outputs.stdout }}" >> $GITHUB_STEP_SUMMARY
+          echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
         env:
           RESULT: ${{ steps.run_case.outputs.stdout }}
       # - uses: actions/upload-artifact@v4
