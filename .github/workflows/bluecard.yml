@@ -46,6 +46,7 @@ jobs:
           MYDATA: ${{ secrets.MYDATA64 }}
 
       - name: Run Robot test case
+        id: run_case
         uses: addnab/docker-run-action@v3
         with:
           registry: ${{ env.REGISTRY }}
@@ -59,8 +60,9 @@ jobs:
 
       - name: Test
         run: |
-          cat /workspace/tests/log.html | grep -q 'Brak karty pobytu do odbioru. Prosimy o ponowną' && echo 'FAIL' || echo 'PASS'
-          echo "Rezerwacja Validate results={result}" >> $GITHUB_STEP_SUMMARY
+          echo "Rezerwacja Validate results=${{ steps.run_case.outputs.stdout }}" >> $GITHUB_STEP_SUMMARY
+        env:
+          RESULT: ${{ steps.run_case.outputs.stdout }}
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
