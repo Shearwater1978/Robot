@@ -56,8 +56,10 @@ jobs:
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
             result=$(robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
-            echo "Rezerwacja Validate result={result}" >> $GITHUB_OUTPUT
-            
+
+      - name: Test
+        run: |
+          echo "Rezerwacja Validate result" >> $GITHUB_OUTPUT
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
