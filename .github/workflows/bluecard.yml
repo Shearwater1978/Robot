@@ -56,7 +56,7 @@ jobs:
           shell: bash
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g' > /opt/results/result.txt
+            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
       - name: Test
         run: |
