@@ -25,7 +25,11 @@ jobs:
       contents: read
     container: ghcr.io/shearwater1978/robot:main
     steps:
-      - run: echo "Running inside Container"
+      - run: |
+          echo "Running inside Container"
+          id
+          pwd
+          whoami
 
       - uses: actions/checkout@v3
 
