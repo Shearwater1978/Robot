@@ -19,7 +19,11 @@ env:
 jobs:
   test:
     runs-on: ubuntu-latest
-    container: ${{ env.REGISTRY }}/${{ env.REPO }}:main
+    environment:
+      name: my
+    permissions:
+      contents: read
+    container: ghcr.io/shearwater1978/robot:main
     steps:
       - run: echo "Running inside Container"
 
@@ -27,7 +31,6 @@ jobs:
 
       - name: downcase REPO
         run: |
-          echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
         env:
           MYDATA: ${{ secrets.MYDATA64 }}
