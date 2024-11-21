@@ -33,6 +33,7 @@ jobs:
           id
           pwd
           whoami
+          ls -la /home/robot/.local/bin/ || true
           echo $PATH
 
       - uses: actions/checkout@v3
@@ -47,6 +48,8 @@ jobs:
         run: |
           whoami
           env
+          ls -la /home/robot/.local/bin/ || true
+          /home/robot/.local/bin/robot --version || true
           echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
           /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
