@@ -37,61 +37,63 @@ jobs:
 
       - name: Run Robot test case
         run: |
+            pwd
+            ls -la
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
             robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
-  RunRobot:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    environment:
-      name: my
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+  # RunRobot:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #   environment:
+  #     name: my
+  #   steps:
+  #     - name: Checkout
+  #       uses: actions/checkout@v4
 
-      - name: Prepare workspace for artifacts
-        run: |
-          mkdir -p ${{ github.workspace }}/tests/ ${{ github.workspace }}/results/
-          ARTIFACTS_SHA=$(git rev-parse --short HEAD)
-          echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
+  #     - name: Prepare workspace for artifacts
+  #       run: |
+  #         mkdir -p ${{ github.workspace }}/tests/ ${{ github.workspace }}/results/
+  #         ARTIFACTS_SHA=$(git rev-parse --short HEAD)
+  #         echo "ARTIFACTS_SHA=$ARTIFACTS_SHA" >> $GITHUB_ENV
 
-      - name: Log into registry ${{ env.REGISTRY }}
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+  #     - name: Log into registry ${{ env.REGISTRY }}
+  #       uses: docker/login-action@v3
+  #       with:
+  #         registry: ${{ env.REGISTRY }}
+  #         username: ${{ github.actor }}
+  #         password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: downcase REPO
-        run: |
-          echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
-          echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
-        env:
-          MYDATA: ${{ secrets.MYDATA64 }}
+  #     - name: downcase REPO
+  #       run: |
+  #         echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
+  #         echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+  #       env:
+  #         MYDATA: ${{ secrets.MYDATA64 }}
 
-      - name: Run Robot test case
-        id: run_case
-        uses: addnab/docker-run-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
-          options: |
-            -v ${{ github.workspace }}:/workspace -e USER_UID=1001
-          shell: bash
-          run: |
-            echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+  #     - name: Run Robot test case
+  #       id: run_case
+  #       uses: addnab/docker-run-action@v3
+  #       with:
+  #         registry: ${{ env.REGISTRY }}
+  #         image: ${{ env.REGISTRY }}/${{ env.REPO }}:main
+  #         options: |
+  #           -v ${{ github.workspace }}:/workspace -e USER_UID=1001
+  #         shell: bash
+  #         run: |
+  #           echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
+  #           robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
-      - name: Test
-        run: |
-          echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
-          echo $RESULT2
-          echo $RESULT3
-        env:
-          RESULT: ${{ steps.run_case.outputs.stdout }}
-          RESULT2: ${{join(steps.run_case.outputs.*, '\n')}}
-          RESULT3: "RESULT3"
+  #     - name: Test
+  #       run: |
+  #         echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
+  #         echo $RESULT2
+  #         echo $RESULT3
+  #       env:
+  #         RESULT: ${{ steps.run_case.outputs.stdout }}
+  #         RESULT2: ${{join(steps.run_case.outputs.*, '\n')}}
+  #         RESULT3: "RESULT3"
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
