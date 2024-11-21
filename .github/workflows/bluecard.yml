@@ -17,6 +17,26 @@ env:
   IMAGE_NAME: ${{ github.repository }}
 
 jobs:
+  test:
+    runs-on: ubuntu-latest
+    container: ${{ env.REGISTRY }}/${{ env.REPO }}:main
+    steps:
+      - run: echo "Running inside Container"
+
+      - uses: actions/checkout@v3
+
+      - name: downcase REPO
+        run: |
+          echo "REPO=${IMAGE_NAME,,}" >> ${GITHUB_ENV}
+          echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+        env:
+          MYDATA: ${{ secrets.MYDATA64 }}
+
+      - name: Run Robot test case
+        run: |
+            echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
+            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+
   RunRobot:
     runs-on: ubuntu-latest
     permissions:
