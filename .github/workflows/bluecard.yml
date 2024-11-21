@@ -66,7 +66,7 @@ jobs:
       - name: Test
         run: |
           pwd
-          ls -la
+          ls -la results/ || true
           echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
         env:
           RESULT: ${{ steps.run_case.outputs.stdout }}
