@@ -58,7 +58,10 @@ jobs:
           shell: bash
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+            result=$(robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
+            echo "RESULT_ENV=${result}" >> ${GITHUB_ENV}
+            echo "RESULT_ENV=${result}" >> $GITHUB_OUTPUT
+            echo "fruit=banana" >> $GITHUB_OUTPUT
 
       - name: Test
         run: |
