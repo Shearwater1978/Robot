@@ -27,7 +27,8 @@ jobs:
       image: ghcr.io/shearwater1978/robot:main
       options: --user 1001    
     steps:
-      - run: |
+      - name: Running inside Container
+        run: |
           echo "Running inside Container"
           id
           pwd
