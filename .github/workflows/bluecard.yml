@@ -30,16 +30,14 @@ jobs:
       - name: Running inside Container
         run: |
           echo "Running inside Container"
+          /home/robot/.local/bin/robot --version || true
           echo $PATH
-
       - uses: actions/checkout@v3
-
       - name: downcase REPO
         run: |
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
         env:
           MYDATA: ${{ secrets.MYDATA64 }}
-
       - name: Run Robot test case
         run: |
           whoami
