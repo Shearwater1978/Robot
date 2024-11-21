@@ -45,10 +45,10 @@ jobs:
 
       - name: Run Robot test case
         run: |
-            pwd
-            ls -la
-            echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
-            /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+          whoami
+          env
+          echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
+          /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
   # RunRobot:
   #   runs-on: ubuntu-latest
