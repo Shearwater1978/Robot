@@ -39,8 +39,8 @@ jobs:
         run: |
             pwd
             ls -la
-            echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
-            robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+            echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
+            robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
   # RunRobot:
   #   runs-on: ubuntu-latest
