@@ -29,9 +29,8 @@ jobs:
     steps:
       - name: Running inside Container
         run: |
+          env
           echo "Running inside Container"
-          /home/robot/.local/bin/robot --version || true
-          echo $PATH
       - uses: actions/checkout@v3
       - name: downcase REPO
         run: |
