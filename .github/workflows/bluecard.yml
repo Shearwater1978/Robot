@@ -59,12 +59,12 @@ jobs:
           run: |
             echo ${{ env.MYDATA }} | base64 -d > /workspace/tests/mydata.json
             robot /workspace/tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+            echo "A" > ${{ github.workspace }}/a.txt
 
       - name: Test
         run: |
           pwd
           ls -la || true
-          cat /opt/results/result.txt || true
           echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
         env:
           RESULT: ${{ steps.run_case.outputs.stdout }}
