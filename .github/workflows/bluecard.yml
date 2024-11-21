@@ -23,7 +23,9 @@ jobs:
       name: my
     permissions:
       contents: read
-    container: ghcr.io/shearwater1978/robot:main
+    container: 
+      image: ghcr.io/shearwater1978/robot:main
+      options: --user 1001    
     steps:
       - run: |
           echo "Running inside Container"
