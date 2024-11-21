@@ -64,9 +64,11 @@ jobs:
         run: |
           echo "Rezerwacja Validate results=${RESULT}" >> $GITHUB_STEP_SUMMARY
           echo $RESULT2
+          echo $RESULT3
         env:
           RESULT: ${{ steps.run_case.outputs.stdout }}
           RESULT2: ${{join(steps.run_case.outputs.*, '\n')}}
+          RESULT3: "RESULT3"
       # - uses: actions/upload-artifact@v4
       #   with:
       #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
