@@ -8,6 +8,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
+  PYTHONPATH: "/home/robot/.local/lib/python3.11/site-packages/robot/"
 
 jobs:
   test:
@@ -21,4 +22,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: python -c "import os, sys; print(os.path.dirname(sys.executable))"
+        run: robot tests/malopolska.robot
