@@ -21,5 +21,8 @@ jobs:
       image: ghcr.io/shearwater1978/robot:main
     steps:
       - uses: actions/checkout@v3
+      - name: Add path
+        run: |
+          echo "/home/robot/.local/lib/python3.11/site-packages" >> $GITHUB_PATH
       - name: Running inside Container
-        run: export PATH=/home/robot/.local/lib/python3.11/site-packages:$PATH pip list -v
+        run: pip list -v
