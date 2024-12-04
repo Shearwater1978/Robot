@@ -26,4 +26,5 @@ jobs:
           env
           echo $PATH
           pip list
-          robot --version
+          pip3 list
+          robot --version || true
