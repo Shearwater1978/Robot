@@ -18,7 +18,6 @@ jobs:
       contents: read
     container: 
       image: ghcr.io/shearwater1978/robot:main
-      options: --user 1001
     steps:
       - name: Running inside Container
         run: |
