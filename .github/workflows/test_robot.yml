@@ -19,6 +19,7 @@ jobs:
     container: 
       image: ghcr.io/shearwater1978/robot:main
     steps:
+      - uses: actions/checkout@v3
       - name: Running inside Container
         run: |
           echo "Running inside Container"
