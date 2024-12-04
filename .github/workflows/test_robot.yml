@@ -21,4 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: robot --help
+        run: python -c 'from robot.run import run_cli'
