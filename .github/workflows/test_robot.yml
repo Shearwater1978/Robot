@@ -1,16 +1,29 @@
+name: Robot
+run-name: Robot
+
+on:
+  workflow_dispatch:
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: ${{ github.repository }}
+  ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
+
 jobs:
-  vm:
+  test:
     runs-on: ubuntu-latest
-    steps:
-      - run: |
-          echo This job does not specify a container.
-          echo It runs directly on the virtual machine.
-        name: Run on VM
-  container:
-    runs-on: ubuntu-latest
-    container: node:10.16-jessie
-    steps:
-      - run: |
-          echo This job does specify a container.
-          echo It runs in the container instead of the VM.
-        name: Run in container
+    environment:
+      name: my
+    permissions:
+      contents: read
+    container: 
+      image: ghcr.io/myrepo/robot:main
+      options: --user 1001
+      steps:
+        - name: Running inside Container
+          run: |
+            echo "Running inside Container"
+            env
+            echo $PATH
+            pip list
+            robot --version
