@@ -25,4 +25,4 @@ jobs:
         run: |
           echo "/opt/pkg/bin/" >> $GITHUB_PATH
       - name: Running inside Container
-        run: pip list -v
+        run: robot --help
