@@ -18,11 +18,11 @@ jobs:
       contents: read
     container: 
       image: ghcr.io/shearwater1978/robot:main
-      steps:
-        - name: Running inside Container
-          run: |
-            echo "Running inside Container"
-            env
-            echo $PATH
-            python -c "import robot" || true
-            python -c "import robot123" || true
+    steps:
+      - name: Running inside Container
+        run: |
+          echo "Running inside Container"
+          env
+          echo $PATH
+          python -c "import robot" || true
+          python -c "import robot123" || true
