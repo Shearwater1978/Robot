@@ -21,5 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: python -c 'from robot.run import run_cli'
+        run: pip list
         shell: bash
+      - name: Running inside Container
+        run: pip list
+        shell: sh
