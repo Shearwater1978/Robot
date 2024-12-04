@@ -8,7 +8,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
-  PYTHONPATH: "/usr/local/lib/python3.11/site-packages"
+  PYTHONPATH: "/opt/pkg/"
 
 jobs:
   test:
@@ -23,6 +23,6 @@ jobs:
       - uses: actions/checkout@v3
       - name: Add path
         run: |
-          echo "/home/robot/.local/lib/python3.11/site-packages" >> $GITHUB_PATH
+          echo "/opt/pkg/bin/" >> $GITHUB_PATH
       - name: Running inside Container
         run: pip list -v
