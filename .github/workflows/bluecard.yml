@@ -32,6 +32,7 @@ jobs:
           echo "Running inside Container"
           env
           echo $PATH
+          pip list
           robot --version
         env:
           ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
