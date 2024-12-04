@@ -19,11 +19,11 @@ jobs:
     container: 
       image: ghcr.io/myrepo/robot:main
       options: --user 1001
-      steps:
-        - name: Running inside Container
-          run: |
-            echo "Running inside Container"
-            env
-            echo $PATH
-            pip list
-            robot --version
+    steps:
+      - name: Running inside Container
+        run: |
+          echo "Running inside Container"
+          env
+          echo $PATH
+          pip list
+          robot --version
