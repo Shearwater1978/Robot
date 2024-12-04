@@ -21,4 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: which python | xargs md5sum && which pip | xargs md5sum
+        run: python -c "import os, sys; print(os.path.dirname(sys.executable))"
