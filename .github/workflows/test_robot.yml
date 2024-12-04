@@ -11,13 +11,12 @@ on:
     - 'tests/**'
 
 env:
-  # Use docker.io for Docker Hub if empty
   REGISTRY: ghcr.io
-  # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
 
 jobs:
-  test:
+  robot:
     runs-on: ubuntu-latest
     environment:
       name: my
@@ -33,19 +32,29 @@ jobs:
             echo $PATH
             pip list
             robot --version
-          env:
-            ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
-        - uses: actions/checkout@v3
-        - name: downcase REPO
-          run: |
-            echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
-          env:
-            MYDATA: ${{ secrets.MYDATA64 }}
-        - name: Run Robot test case
-          run: |
-            whoami
-            id
-            pwd
-            /home/robot/.local/bin/robot --version || true
-            # echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
-            # /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+
+  node-docker:
+    runs-on: ubuntu-latest
+    container:
+      image: node:14.15.0-alpine3.12
+      steps:
+         - name: Log the parent container node version
+           run: |
+             node -v 
+           # Echo the node version of the parent container
+
+
+         - name: Log the step container node version
+           uses: docker://node:12.14.1-alpine3.10
+           with:
+             entrypoint: usr/local/bin/echo
+             args: -v
+            # Echo the node version of this step container based on this 12.14.1-alpine3.10 image
+
+
+         - name: Step with docker to echo a string
+           uses: docker://node:12.14.1-alpine3.10
+           with:
+             entrypoint: /bin/echo
+             args: Hello Docker !
+            
