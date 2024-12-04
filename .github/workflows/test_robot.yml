@@ -21,12 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: |
-          echo "Running inside Container"
-          env
-          echo $PATH
-          python -c "import robot" || true
-          python -c "import robot123" || true
-          ls -la /home/robot/.local/lib/python3.11/site-packages/robot/ || true
-          which robot
-          stat /home/robot/.local/bin/robot
+        run: robot --help
