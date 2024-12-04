@@ -30,7 +30,7 @@ jobs:
       - name: Running inside Container
         run: |
           env
-          ls -la /home/ || true
+          ls -la /home/robot/ || true
           echo "Running inside Container"
       - uses: actions/checkout@v3
       - name: downcase REPO
