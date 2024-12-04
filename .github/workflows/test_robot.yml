@@ -21,4 +21,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: stat /home/robot/.local/lib/python3.11/site-packages/robot/__init__.py
+        run: python /home/robot/.local/lib/python3.11/site-packages/robot/run.py --help
