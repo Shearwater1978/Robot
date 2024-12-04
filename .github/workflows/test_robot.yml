@@ -24,6 +24,5 @@ jobs:
           echo "Running inside Container"
           env
           echo $PATH
-          pip list
-          pip3 list
-          robot --version || true
+          python -c "import robot" || true
+          python -c "import robot123" || true
