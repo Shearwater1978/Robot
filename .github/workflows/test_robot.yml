@@ -29,9 +29,7 @@ jobs:
           run: |
             echo "Running inside Container"
             env
-            echo $PATH
-            pip list
-            robot --version
+            # robot --version 
 
   node-docker:
     runs-on: ubuntu-latest
