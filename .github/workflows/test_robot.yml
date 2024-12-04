@@ -21,8 +21,8 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: pip list
+        run: echo $0 && pip list
         shell: bash
       - name: Running inside Container
-        run: pip list
+        run: echo $0 && pip list
         shell: sh
