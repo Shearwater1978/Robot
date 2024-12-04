@@ -32,7 +32,9 @@ jobs:
           env
           ls -la /home/robot/.local/bin/ || true
           echo "Running inside Container"
-          ROBOT_OPTIONS=--outputdir results --suitestatlevel 2 /home/robot/.local/bin/robot --version
+          /home/robot/.local/bin/robot --version
+        env:
+          ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
       - uses: actions/checkout@v3
       - name: downcase REPO
         run: |
