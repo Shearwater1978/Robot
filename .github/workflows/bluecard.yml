@@ -4,11 +4,11 @@ run-name: Bluecard check case 🚀
 on:
   schedule:
     - cron: "59 23 * * *"
-  workflow_dispatch:
-  push:
-    paths:
-    - '.github/**'
-    - 'tests/**'
+  # workflow_dispatch:
+  # push:
+  #   paths:
+  #   - '.github/**'
+  #   - 'tests/**'
 
 env:
   # Use docker.io for Docker Hub if empty
