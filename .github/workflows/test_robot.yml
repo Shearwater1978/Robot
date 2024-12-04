@@ -28,3 +28,4 @@ jobs:
           python -c "import robot" || true
           python -c "import robot123" || true
           ls -la /home/robot/.local/lib/python3.11/site-packages/robot/ || true
+          which robot
