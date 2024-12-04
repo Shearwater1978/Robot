@@ -4,6 +4,7 @@ ARG USERNAME=robot
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
 ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/"
+ENV PYTHONPATH="/opt/pkg"
 ENV ROBOT_OPTIONS="--outputdir results --suitestatlevel 2"
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PIP_NO_CACHE_DIR=1
@@ -20,7 +21,8 @@ RUN groupadd --gid $USER_GID $USERNAME \
 USER robot
 WORKDIR /tmp/
 COPY --chown=robot:robot requirements.txt .
-RUN pip install --user -r requirements.txt
+# RUN pip install --user -r requirements.txt
+RUN pip install --target=/opt/pkg -r requirements.txt
 
 USER root
 RUN apt install -y libnss3 \
