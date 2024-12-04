@@ -1,0 +1,51 @@
+name: Robot test
+run-name: Robot test 🚀
+
+on:
+  schedule:
+    - cron: "59 23 * * *"
+  workflow_dispatch:
+  push:
+    paths:
+    - '.github/**'
+    - 'tests/**'
+
+env:
+  # Use docker.io for Docker Hub if empty
+  REGISTRY: ghcr.io
+  # github.repository as <account>/<repo>
+  IMAGE_NAME: ${{ github.repository }}
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    environment:
+      name: my
+    permissions:
+      contents: read
+    container: 
+      image: ghcr.io/shearwater1978/robot:main
+      steps:
+        - name: Running inside Container
+          run: |
+            echo "Running inside Container"
+            env
+            echo $PATH
+            pip list
+            robot --version
+          env:
+            ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
+        - uses: actions/checkout@v3
+        - name: downcase REPO
+          run: |
+            echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+          env:
+            MYDATA: ${{ secrets.MYDATA64 }}
+        - name: Run Robot test case
+          run: |
+            whoami
+            id
+            pwd
+            /home/robot/.local/bin/robot --version || true
+            # echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
+            # /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
