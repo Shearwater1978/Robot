@@ -29,10 +29,10 @@ jobs:
     steps:
       - name: Running inside Container
         run: |
-          env
-          ls -la /home/robot/.local/bin/ || true
           echo "Running inside Container"
-          /home/robot/.local/bin/robot --version
+          env
+          echo $PATH
+          robot --version
         env:
           ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
       - uses: actions/checkout@v3
