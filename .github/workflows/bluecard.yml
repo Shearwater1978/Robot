@@ -4,7 +4,7 @@ run-name: Bluecard check case 🚀
 on:
   schedule:
     - cron: "59 23 * * *"
-  # workflow_dispatch:
+  workflow_dispatch:
   # push:
   #   paths:
   #   - '.github/**'
