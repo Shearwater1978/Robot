@@ -1,27 +1,16 @@
-name: container
-on: push
-
 jobs:
-  node-docker:
+  vm:
     runs-on: ubuntu-latest
-    container:
-      image: node:14.15.0-alpine3.12
-      steps:
-         - name: Log the parent container node version
-           run: |
-             node -v 
-           # Echo the node version of the parent container
-
-         - name: Log the step container node version
-           uses: docker://node:12.14.1-alpine3.10
-           with:
-             entrypoint: usr/local/bin/echo
-             args: -v
-            # Echo the node version of this step container based on this 12.14.1-alpine3.10 image
-
-
-         - name: Step with docker to echo a string
-           uses: docker://node:12.14.1-alpine3.10
-           with:
-             entrypoint: /bin/echo
-             args: Hello Docker !
+    steps:
+      - run: |
+          echo This job does not specify a container.
+          echo It runs directly on the virtual machine.
+        name: Run on VM
+  container:
+    runs-on: ubuntu-latest
+    container: node:10.16-jessie
+    steps:
+      - run: |
+          echo This job does specify a container.
+          echo It runs in the container instead of the VM.
+        name: Run in container
