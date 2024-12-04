@@ -22,4 +22,4 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Running inside Container
-        run: pip list -v
+        run: export PATH=/home/robot/.local/lib/python3.11/site-packages:$PATH pip list -v
