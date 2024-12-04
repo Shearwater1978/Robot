@@ -17,7 +17,7 @@ jobs:
     permissions:
       contents: read
     container: 
-      image: ghcr.io/myrepo/robot:main
+      image: ghcr.io/shearwater1978/robot:main
       options: --user 1001
     steps:
       - name: Running inside Container
