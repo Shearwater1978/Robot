@@ -27,15 +27,6 @@ jobs:
       image: ghcr.io/shearwater1978/robot:main
       options: --user 1001    
     steps:
-      - name: Running inside Container
-        run: |
-          echo "Running inside Container"
-          env
-          echo $PATH
-          pip list
-          robot --version
-        env:
-          ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
       - uses: actions/checkout@v3
       - name: downcase REPO
         run: |
