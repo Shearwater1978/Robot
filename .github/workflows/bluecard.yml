@@ -37,12 +37,14 @@ jobs:
       - name: downcase REPO
         run: |
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
+          mkdir ${{ github.workspace }}/results || true
         env:
           MYDATA: ${{ secrets.MYDATA64 }}
 
       - name: Run Robot test case
         run: |
           echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
+          echo ${{ github.workspace }}
           robot --outputdir ${{ github.workspace }}/results --suitestatlevel 2 tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
           ls -la
           pwd
