@@ -15,9 +15,11 @@ env:
   REGISTRY: ghcr.io
   # github.repository as <account>/<repo>
   IMAGE_NAME: ${{ github.repository }}
+  ROBOT_OPTIONS: "--outputdir results --suitestatlevel 2"
+  PYTHONPATH: "/opt/pkg/"
 
 jobs:
-  test:
+  check-card:
     runs-on: ubuntu-latest
     environment:
       name: my
@@ -25,18 +27,23 @@ jobs:
       contents: read
     container: 
       image: ghcr.io/shearwater1978/robot:main
-      options: --user 1001    
     steps:
       - uses: actions/checkout@v3
+
+      - name: Add path
+        run: |
+          echo "/opt/pkg/bin/" >> $GITHUB_PATH
+
       - name: downcase REPO
         run: |
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
         env:
           MYDATA: ${{ secrets.MYDATA64 }}
+
       - name: Run Robot test case
         run: |
           echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
-          python /home/robot/.local/lib/python3.11/site-packages/robot/run.py tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
+          robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
           # /home/robot/.local/bin/robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
   # RunRobot:
