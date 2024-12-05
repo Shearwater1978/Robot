@@ -46,12 +46,12 @@ jobs:
           echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
           robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g'
 
-      - uses: actions/upload-artifact@v4
-        with:
-          name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
-          retention-days: 1
-          path: |
-            /__w/Robot/Robot/results/*
+      # - uses: actions/upload-artifact@v4
+      #   with:
+      #     name: robot-artifacts-${{ env.ARTIFACTS_SHA }}
+      #     retention-days: 1
+      #     path: |
+      #       /__w/Robot/Robot/results/*
 
   # RunRobot:
   #   runs-on: ubuntu-latest
