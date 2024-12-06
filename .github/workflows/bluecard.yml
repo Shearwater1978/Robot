@@ -47,6 +47,7 @@ jobs:
           res=$(robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
           echo $res
           echo "res=${res}" >> ${GITHUB_ENV}
+          env | grep res
   
   send_results:
     runs-on: ubuntu-latest
