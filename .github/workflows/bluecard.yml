@@ -21,6 +21,7 @@ env:
 jobs:
   check-card:
     runs-on: ubuntu-latest
+    name: check_card
     environment:
       name: my
     permissions:
@@ -53,6 +54,7 @@ jobs:
       name: my
     permissions:
       contents: read
+    needs: check_card
     steps:
       - name: Send Telegram Message Ok
         uses: appleboy/telegram-action@master
