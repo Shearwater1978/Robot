@@ -56,6 +56,9 @@ jobs:
       contents: read
     needs: check-card
     steps:
+      - run: |
+          env
+
       - name: Send Telegram Message Ok
         uses: appleboy/telegram-action@master
         with:
