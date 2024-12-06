@@ -45,9 +45,22 @@ jobs:
         run: |
           echo ${{ env.MYDATA }} | base64 -d > tests/mydata.json
           res=$(robot tests/malopolska.robot | grep 'Rezerwacja Validate results' | cut -d '|' -f2 | sed 's| ||g')
-          echo $res
           echo "res=${res}" >> ${GITHUB_ENV}
-          env | grep res
+
+      - name: Send Telegram Message Ok
+        uses: appleboy/telegram-action@master
+        with:
+          to: ${{ secrets.TELEGRAM_ID }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          format: markdown
+          message: |
+            *1st line of your message with bold*
+            *2nd line of your message with bold, too*
+            Application: *Write something to be put inside your message*. The below lines still are part of your message.          
+            Branch: *${{ github.ref }}*
+            Repository: *${{ github.repository }}*
+            Owner: *${{ github.repository_owner }}*
+            Res: {{ env.res }}
   
   send_results:
     runs-on: ubuntu-latest
