@@ -38,7 +38,6 @@ jobs:
       - name: downcase REPO
         run: |
           echo "MYDATA=${MYDATA}" >> ${GITHUB_ENV}
-          mkdir ${{ github.workspace }}/results || true
         env:
           MYDATA: ${{ secrets.MYDATA64 }}
 
