@@ -60,7 +60,7 @@ jobs:
             Branch: *${{ github.ref }}*
             Repository: *${{ github.repository }}*
             Owner: *${{ github.repository_owner }}*
-            Res: {{ env.res }}
+            Res: "${{ env.res }}"
   
   send_results:
     runs-on: ubuntu-latest
@@ -81,12 +81,7 @@ jobs:
           format: markdown
           message: |
             *1st line of your message with bold*
-            *2nd line of your message with bold, too*
-            Application: *Write something to be put inside your message*. The below lines still are part of your message.          
-            Branch: *${{ github.ref }}*
-            Repository: *${{ github.repository }}*
-            Owner: *${{ github.repository_owner }}*
-            Res: {{ env.res }}
+            Res: "${{ env.res }}"
 
       # - uses: actions/upload-artifact@v4
       #   with:
