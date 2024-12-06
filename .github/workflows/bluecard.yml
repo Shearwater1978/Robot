@@ -54,34 +54,29 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           format: markdown
           message: |
-            *1st line of your message with bold*
-            *2nd line of your message with bold, too*
-            Application: *Write something to be put inside your message*. The below lines still are part of your message.          
-            Branch: *${{ github.ref }}*
-            Repository: *${{ github.repository }}*
-            Owner: *${{ github.repository_owner }}*
-            Res: "${{ env.res }}"
+            Date: "${{ date }}"
+            Card issue status: "${{ env.res }}"
   
-  send_results:
-    runs-on: ubuntu-latest
-    environment:
-      name: my
-    permissions:
-      contents: read
-    needs: check-card
-    steps:
-      - run: |
-          env
+  # send_results:
+  #   runs-on: ubuntu-latest
+  #   environment:
+  #     name: my
+  #   permissions:
+  #     contents: read
+  #   needs: check-card
+  #   steps:
+  #     - run: |
+  #         env
 
-      - name: Send Telegram Message Ok
-        uses: appleboy/telegram-action@master
-        with:
-          to: ${{ secrets.TELEGRAM_ID }}
-          token: ${{ secrets.TELEGRAM_TOKEN }}
-          format: markdown
-          message: |
-            *1st line of your message with bold*
-            Res: "${{ env.res }}"
+  #     - name: Send Telegram Message Ok
+  #       uses: appleboy/telegram-action@master
+  #       with:
+  #         to: ${{ secrets.TELEGRAM_ID }}
+  #         token: ${{ secrets.TELEGRAM_TOKEN }}
+  #         format: markdown
+  #         message: |
+  #           *1st line of your message with bold*
+  #           Res: "${{ env.res }}"
 
       # - uses: actions/upload-artifact@v4
       #   with:
