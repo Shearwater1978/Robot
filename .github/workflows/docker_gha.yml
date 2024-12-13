@@ -36,6 +36,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Test
+        run: |
+          - env
+        env:
+          A: ${{ inputs.mode }}
+          B: ${{ github.event.inputs.mode }}
+
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
