@@ -5,12 +5,12 @@ on:
     inputs:
       mode:
         description: 'Override for build Docker image from main branch'
-        required: true
-        type: choice
+        required: false
         default: 'nope'
-        options:
-          - yep
-          - nope
+      second:
+        description: 'Override for build Docker image from main branch'
+        required: false
+        default: 'nope'
   # push:
   #   paths:
   #     - '**/Dockerfile'
@@ -38,10 +38,12 @@ jobs:
 
       - name: Test
         run: |
-          - env
+          env
+          exit
         env:
           A: ${{ inputs.mode }}
-          B: ${{ github.event.inputs.mode }}
+          B: ${{ inputs.second }}
+          C: ${{ inputs.mode || inputs.second }}
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
