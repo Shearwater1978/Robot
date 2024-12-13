@@ -7,15 +7,31 @@ on:
         description: 'Override for build Docker image from main branch'
         required: false
         default: 'nope'
-      second:
-        description: 'Override for build Docker image from main branch'
-        required: false
-        default: 'nope'
+      bypass_checks:
+        type: boolean
+        default: false
+        description: Do not fail pipeline if checks failed
+      bypass_ort:
+        type: boolean
+        default: false
+        description: Do not fail pipeline if ORT scan failed
+      
   # push:
   #   paths:
   #     - '**/Dockerfile'
   #     - '**/app/'
 jobs:
+  Test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Test
+        run: |
+          env
+          exit
+        env:
+          A: ${{ inputs.bypass_checks }}
+          B: ${{ inputs.bypass_ort }}
+
   Hadolint:
     runs-on: ubuntu-latest
     if: github.ref != 'refs/heads/main'
