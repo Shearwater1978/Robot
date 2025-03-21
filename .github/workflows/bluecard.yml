@@ -2,8 +2,8 @@ name: Bluecard check
 run-name: Bluecard check case 🚀
 
 on:
-  schedule:
-    - cron: "29 04 * * *"
+  # schedule:
+  #   - cron: "29 04 * * *"
   workflow_dispatch:
   # push:
   #   paths:
