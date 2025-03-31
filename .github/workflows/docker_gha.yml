@@ -22,8 +22,8 @@ on:
   #     - '**/app/'
 jobs:
   Test:
-    # runs-on: ubuntu-latest
-    runs-on: ghcr.io/epam/ai-dial-adapter-vertexai:development
+    runs-on: ubuntu-latest
+    # runs-on: ghcr.io/epam/ai-dial-adapter-vertexai:development
     steps:
       - name: Test
         run: |
