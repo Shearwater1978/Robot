@@ -18,7 +18,8 @@ jobs:
     permissions:
       contents: read
     container: 
-      image: ghcr.io/shearwater1978/robot:main
+      # image: ghcr.io/shearwater1978/robot:main
+      image: ghcr.io/epam/ai-dial-adapter-vertexai:development
     steps:
       - uses: actions/checkout@v3
       - name: Add path
