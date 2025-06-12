@@ -1,6 +1,6 @@
 selenium==4.20.0
 robotframework==7.0
-robotframework_selenium2library==3.0.0
+robotframework-browser
 robotframework_seleniumlibrary==6.3.0
 robotframework_pythonlibcore==4.4.1
 DateTime
