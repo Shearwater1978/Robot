@@ -3,7 +3,7 @@ FROM python:3.11-slim
 ARG USERNAME=robot
 ARG USER_UID=1000
 ARG USER_GID=$USER_UID
-ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/"
+ENV PATH="$PATH:/home/$USERNAME/.local/bin:/opt/chrome/:/opt/:/opt/pkg/bin/:/opt/pkg/"
 ENV PYTHONPATH="/opt/pkg"
 ENV ROBOT_OPTIONS="--outputdir results --suitestatlevel 2"
 ENV DEBIAN_FRONTEND=noninteractive
@@ -16,7 +16,7 @@ RUN groupadd --gid $USER_GID $USERNAME \
     && chown -R $USER_UID:$USER_GID /home/$USERNAME /opt/ \
     && apt update \
     && apt install curl unzip vim -y \
-    && apt autoremove 
+    && apt autoremove
 
 USER robot
 WORKDIR /tmp/
@@ -26,7 +26,7 @@ RUN pip install --target=/opt/pkg -r requirements.txt
 
 USER root
 RUN apt install -y libnss3 \
-        libnss3-dev
+        libnss3-dev nodejs npm
 
 RUN apt install -y libatk1.0-0 \
         libatk-bridge2.0-0 \
@@ -65,5 +65,12 @@ RUN curl -sS -Lo "/tmp/chromedriver.zip" "https://chromedriver.storage.googleapi
     && unzip /tmp/chromedriver.zip -d /opt/ \
     && unzip /tmp/chrome-linux.zip -d /opt/ \
     && mkdir -p /opt/chrome /opt/screenshots/ \
-    && cp -r /opt/chrome-linux/* /opt/chrome \
-    && rm -rf /tmp/* /opt/chrome-linux/
+    && cp -r /opt/chrome-linux/* /opt/chrome
+
+USER root
+RUN rm -rf /tmp/* /opt/chrome-linux/
+
+USER robot
+WORKDIR /opt/
+RUN export PATH=$PATH:/opt/pkg/bin/:/opt/pkg/:/opt/chrome \
+   && rfbrowser init
