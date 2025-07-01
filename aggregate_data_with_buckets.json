@@ -3,7 +3,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Bucket",
         "metadata": {
-            "name": "default_agg_topic"
+            "name": "cranky-aggtopic-458001"
         },
         "spec": {
             "name": "default_agg_topic"
@@ -13,7 +13,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Bucket",
         "metadata": {
-            "name": "default_agg_topic_2"
+            "name": "cranky-aggtopic2-458001"
         },
         "spec": {
             "name": "default_agg_topic_2"
@@ -23,7 +23,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Bucket",
         "metadata": {
-            "name": "default_agg_stats"
+            "name": "cranky-aggstats-458001"
         },
         "spec": {
             "name": "default_agg_stats"
@@ -33,7 +33,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Bucket",
         "metadata": {
-            "name": "default_agg_kpi"
+            "name": "cranky-aggkpi-458001"
         },
         "spec": {
             "name": "default_agg_kpi"
@@ -43,7 +43,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Bucket",
         "metadata": {
-            "name": "default_agg_chatid"
+            "name": "cranky-aggchatid-458001"
         },
         "spec": {
             "name": "default_agg_chatid"
@@ -53,7 +53,7 @@
         "apiVersion": "influxdata.com/v2alpha1",
         "kind": "Task",
         "metadata": {
-            "name": "aggregate_data"
+            "name": "cranky-task-458001"
         },
         "spec": {
             "cron": "0 */6 * * *",
