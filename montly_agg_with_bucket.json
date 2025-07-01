@@ -6,7 +6,7 @@
             "name": "cranky-bucket-458001"
         },
         "spec": {
-            "name": "default_monthly_agg"
+            "name": "default_agg_month"
         }
     },
     {
